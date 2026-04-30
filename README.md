@@ -4,7 +4,7 @@
 
 ## Fase 1 – Alinhamento e pesquisa 
 
-##Explicação do padrão DAO (com exemplos) 
+## Explicação do padrão DAO (com exemplos) 
 
  
 
@@ -74,60 +74,72 @@ O app contém a lógica de execução da aplicação, como menus e rotinas de in
 Separa lógica de negócio da lógica de persistência.
 Centraliza operações de acesso ao banco (CRUD e consultas).
 Garante baixo acoplamento e facilidade de manutenção.
-2. Arquitetura em Camadas
-2.1 model
+
+## 2. Arquitetura em Camadas
+### 2.1 model
 Representa as entidades do domínio.
 Cada classe reflete uma tabela do banco.
 Armazena atributos e métodos de acesso.
-2.2 dao
+
+### 2.2 dao
 Contém as interfaces que definem contratos de acesso a dados.
 Declara métodos como insert, update, delete, findById, findAll.
 Não implementa lógica, apenas define o que deve ser feito.
-2.3 dao.impl
+
+### 2.3 dao.impl
 Implementa as interfaces DAO usando JDBC.
 Contém SQL, PreparedStatement, ResultSet e mapeamento para objetos.
 Realiza o tratamento e encapsulamento de exceções.
-2.4 db
+
+### 2.4 db
 Centraliza a infraestrutura de conexão com o banco.
 Inclui ConnectionFactory, DbException e db.properties.
 Fornece conexões configuradas e padronizadas.
-2.5 app
+
+### 2.5 app
 Contém o fluxo principal da aplicação.
 Executa menus, navegação e interação do usuário.
 Usa os DAOs sem lidar com SQL.
-3. JDBC (Java Database Connectivity)
+
+## 3. JDBC (Java Database Connectivity)
 API usada para conectar aplicações Java a bancos relacionais.
 Usa drivers específicos para cada SGBD.
 Permite executar SQL e manipular resultados.
-4. Funcionamento da Conexão JDBC
+
+## 4. Funcionamento da Conexão JDBC
 Criação da conexão via DriverManager.getConnection().
 Requer URL JDBC, usuário e senha.
 Gera objetos para executar SQL: Statement e PreparedStatement.
 Retorna dados através de ResultSet.
 Recursos devem ser fechados com try-with-resources.
-5. PreparedStatement
+
+## 5. PreparedStatement
 Instrui SQL com parâmetros usando ?.
 Previne SQL Injection.
 Melhora desempenho com pré-compilação.
 Organiza o código de persistência.
-6. SQL Injection
+
+## 6. SQL Injection
 Ataque que injeta SQL malicioso em entradas inseguras.
 Pode permitir acesso, alteração ou exclusão de dados.
 É prevenido com PreparedStatement.
-7. Mapeamento de ResultSet
+
+## 7. Mapeamento de ResultSet
 O resultado do banco vem em forma de ResultSet.
 Cada linha é convertida em objetos do model.
 Processo conhecido como object mapping.
-8. Exceções (SQLException → DbException)
+
+## 8. Exceções (SQLException → DbException)
 SQLException representa erros do JDBC.
 Encapsular em DbException padroniza o tratamento.
 Evita propagação de exceções checadas para outras camadas.
-9. Transações (conceito)
+
+## 9. Transações (conceito)
 Agrupam múltiplas operações em uma única unidade lógica.
 Usam: setAutoCommit(false), commit(), rollback().
 Garantem consistência de dados.
 
-### Fontes 
+# Fontes 
 
 https://www.dio.me/articles/o-que-e-dao-ba9c73921265 
 
