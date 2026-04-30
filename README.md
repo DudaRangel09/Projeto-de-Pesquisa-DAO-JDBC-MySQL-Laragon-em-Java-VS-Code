@@ -1,4 +1,4 @@
-Projeto de pesquisa – DAO + JDBC + MySQL em Java/ VS Code 
+##Projeto de pesquisa – DAO + JDBC + MySQL em Java/ VS Code 
 
  
 
@@ -28,21 +28,21 @@ JDBC (Java Database Connectivity) é uma API da linguagem Java que permite fazer
 
 Como funciona a conexão? 
 
-	O Java conecta-se a bancos de dados através da API JDBC utilizando um driver apropriado para o SGBD. A conexão é estabelecida pelo método “DriverManager.getConnection()”, que recebe a URL JDBC, usuário e senha, retornando um objeto “Connection”. A partir dessa conexão, a aplicação cria “Statement” ou “PreparedStatement” para enviar comandos SQL ao banco e, quando necessário, recebe resultados por meio de “ResultSet”. Após o uso, todos os recursos devem ser fechados, preferencialmente com try-with-resources, garantindo segurança e eficiência no aceso aos dados. 
+O Java conecta-se a bancos de dados através da API JDBC utilizando um driver apropriado para o SGBD. A conexão é estabelecida pelo método “DriverManager.getConnection()”, que recebe a URL JDBC, usuário e senha, retornando um objeto “Connection”. A partir dessa conexão, a aplicação cria “Statement” ou “PreparedStatement” para enviar comandos SQL ao banco e, quando necessário, recebe resultados por meio de “ResultSet”. Após o uso, todos os recursos devem ser fechados, preferencialmente com try-with-resources, garantindo segurança e eficiência no aceso aos dados. 
 
  
 
 O que é PreparedStatement? 
 
-	É uma interface do JDBC usada para executar comandos SQL parametrizados. Ele permite definir valores por meio de marcadores “?”, oferecendo mais segurança contra SQL Injection, melhor desempenho e uma estrutura mais clara e organizada para operações de banco de dados. 
+É uma interface do JDBC usada para executar comandos SQL parametrizados. Ele permite definir valores por meio de marcadores “?”, oferecendo mais segurança contra SQL Injection, melhor desempenho e uma estrutura mais clara e organizada para operações de banco de dados. 
 
  
 
 Por que evitar SQL Injection? 
 
-	O SQL Injection é uma técnica de ataque em que um invasor insere ou altera os comandos SQL dentro de entradas fornecidas ao sistema (como campos de formulários). Quando a aplicação constrói a query de forma insegura, o banco de dados interpreta esses comandos maliciosos como parte legítima da instrução SQL. Isso permite que o atacante acesse, manipule ou exclua dados, mesmo sem autorização. 
+O SQL Injection é uma técnica de ataque em que um invasor insere ou altera os comandos SQL dentro de entradas fornecidas ao sistema (como campos de formulários). Quando a aplicação constrói a query de forma insegura, o banco de dados interpreta esses comandos maliciosos como parte legítima da instrução SQL. Isso permite que o atacante acesse, manipule ou exclua dados, mesmo sem autorização. 
 
-	Evitar o SQL Injection é importante porque essa vulnerabilidade pode permitir o acesso não autorizado a informações confidenciais, a alteração ou exclusão de dados, obtenção de privilégios administrativos, prejuízo financeiro e perda de confiança na empresa. Esses riscos existem porque o banco de dados executa cegamente os comandos SQL recebidos da aplicação quando eles não são filtrados ou parametrizados. 
+Evitar o SQL Injection é importante porque essa vulnerabilidade pode permitir o acesso não autorizado a informações confidenciais, a alteração ou exclusão de dados, obtenção de privilégios administrativos, prejuízo financeiro e perda de confiança na empresa. Esses riscos existem porque o banco de dados executa cegamente os comandos SQL recebidos da aplicação quando eles não são filtrados ou parametrizados. 
 
  
 
@@ -52,29 +52,29 @@ Por que evitar SQL Injection?
 
 Como fechar recursos com try-with-resources? 
 
-	O try-with-resources permite que objetos que implementam a interface “AutoCloseable” sejam fechados automaticamente ao final do bloco “try”, independentemente de ocorrerem exceções. No contexto de JDBC, isso inclui “Connection, PreparedStatemente e ResultSet”. 
+O try-with-resources permite que objetos que implementam a interface “AutoCloseable” sejam fechados automaticamente ao final do bloco “try”, independentemente de ocorrerem exceções. No contexto de JDBC, isso inclui “Connection, PreparedStatemente e ResultSet”. 
 
-	Ao declarar esses recursos entre parênteses no “try”, o Java garante que todos serão fechados de forma segura e ordenada ao término da execução do bloco. Esse recurso evita vazamento de conexões, substitui a necessidade de blocos “Finally” extensos e promove um código mais limpo e confiável. 
+Ao declarar esses recursos entre parênteses no “try”, o Java garante que todos serão fechados de forma segura e ordenada ao término da execução do bloco. Esse recurso evita vazamento de conexões, substitui a necessidade de blocos “Finally” extensos e promove um código mais limpo e confiável. 
 
  
 
 Por que encapsular SQLException? 
 
-	Porque ele consiste em converter essa execução específica do JDBC em uma execução própria da aplicação, geralmente uma RuntimeException, como “DbException”. Esse procedimento é adorado para tornar o tratamento de erros mais organizado e adequado à arquitetura. 
+Porque ele consiste em converter essa execução específica do JDBC em uma execução própria da aplicação, geralmente uma RuntimeException, como “DbException”. Esse procedimento é adorado para tornar o tratamento de erros mais organizado e adequado à arquitetura. 
 
  
 
 Qual é o papel de cada camada (model, dao, dao.impl, db, app)? 
 
-	Cada camada tem uma função específica que garante a organização, separação de responsabilidades e facilidade de manutenção. A camada model concentra as classes que representam as entidades do domínio, funcionando como a estrutura de dados da aplicação. São classes que refletem as tabelas do banco e contêm apenas atributos, construtores e métodos de acesso. 
+Cada camada tem uma função específica que garante a organização, separação de responsabilidades e facilidade de manutenção. A camada model concentra as classes que representam as entidades do domínio, funcionando como a estrutura de dados da aplicação. São classes que refletem as tabelas do banco e contêm apenas atributos, construtores e métodos de acesso. 
 
-	O dao reúne as interfaces que definem os contatos de acesso a dados. Nelas ficam apenas as assinaturas dos métodos que serão usados pela aplicação, como inserção, atualização, remoção e consultas, sem expor qualquer detalhe de implementação. 
+O dao reúne as interfaces que definem os contatos de acesso a dados. Nelas ficam apenas as assinaturas dos métodos que serão usados pela aplicação, como inserção, atualização, remoção e consultas, sem expor qualquer detalhe de implementação. 
 
-	O dao.impl contém as implementações concretas dessas interfaces, utilizando JDBC. É nessa camada que são escritas as instruções SQL, criados e executados os “PreparedStatement”, realizados os mapeamentos de “ResultSet” para objetos e tratado o encapsulamento de exceções relacionadas ao banco de dados. 
+O dao.impl contém as implementações concretas dessas interfaces, utilizando JDBC. É nessa camada que são escritas as instruções SQL, criados e executados os “PreparedStatement”, realizados os mapeamentos de “ResultSet” para objetos e tratado o encapsulamento de exceções relacionadas ao banco de dados. 
 
-	A camada db centraliza tudo que diz respeito à conexão com o banco. Ela inclui classes como “ConnectionFactory”, que cria e gerencia conexões, a exceção personalizada “DbException” e o arquivo de configuração “db.properties”, que define parâmetros como URL, usuário e senha. 
+A camada db centraliza tudo que diz respeito à conexão com o banco. Ela inclui classes como “ConnectionFactory”, que cria e gerencia conexões, a exceção personalizada “DbException” e o arquivo de configuração “db.properties”, que define parâmetros como URL, usuário e senha. 
 
-	O app contém a lógica de execução da aplicação, como menus e rotinas de interação com o usuário. Ela coordena o fluxo da aplicação, chama os métodos dos DAOs e apresenta os resultados, lidar diretamente com SQL ou com detalhes internos da persistência. 
+O app contém a lógica de execução da aplicação, como menus e rotinas de interação com o usuário. Ela coordena o fluxo da aplicação, chama os métodos dos DAOs e apresenta os resultados, lidar diretamente com SQL ou com detalhes internos da persistência. 
 
 
 Fontes 
