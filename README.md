@@ -71,9 +71,9 @@ O app contém a lógica de execução da aplicação, como menus e rotinas de in
 # Mapa conceitual
 
 ## 1. DAO (Data Access Object)
-Separa lógica de negócio da lógica de persistência.
-Centraliza operações de acesso ao banco (CRUD e consultas).
-Garante baixo acoplamento e facilidade de manutenção.
+* Separa lógica de negócio da lógica de persistência.
+* Centraliza operações de acesso ao banco (CRUD e consultas).
+* Garante baixo acoplamento e facilidade de manutenção.
 
 ## 2. Arquitetura em Camadas
 ### 2.1 model
